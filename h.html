@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>રાજપૂત યુવક મંડળ ગોંડલ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D4AF37;
+            --accent-color: #2C5282;
+            --light-bg: #F5E6D3;
+            --dark-text: #1a1a1a;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans Gujarati', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .jai-mata {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            color: var(--secondary-color);
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        /* Organization Info */
+        .org-info {
+            background-color: var(--white);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .info-row {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .info-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--dark-text);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            background-color: var(--white);
+            margin-bottom: 25px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title:before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            margin-right: 15px;
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--dark-text);
+        }
+
+        .section-content li {
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .contact-section .section-title {
+            color: var(--secondary-color);
+        }
+
+        .contact-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            background-color: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .contact-item-label {
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .contact-item-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Trust Info */
+        .trust-info {
+            background-color: #FFF8F0;
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .trust-info-label {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .trust-info-content {
+            color: var(--dark-text);
+            line-height: 1.7;
+        }
+
+        /* Team Table */
+        .team-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .team-table th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .team-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--light-bg);
+        }
+
+        .team-table tr:hover {
+            background-color: #F9F9F9;
+        }
+
+        .team-table .name-col {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 32px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .contact-items {
+                grid-template-columns: 1fr;
+            }
+
+            .section-content li {
+                margin-left: 20px;
+                font-size: 14px;
+            }
+
+            .team-table {
+                font-size: 14px;
+            }
+
+            .team-table th, .team-table td {
+                padding: 8px;
+            }
+        }
+
+        .emphasis-text {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="jai-mata">II જય માતાજી II</div>
+            <div class="main-title">રાજપૂત યુવક મંડળ</div>
+            <div class="subtitle">શ્રી ગોંડલ તાલુકા - શહેર ટ્રસ્ટ</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="org-info">
+            <div class="info-row">
+                <div class="info-label">સંસ્થાનું આધિકૃત નામ</div>
+                <div class="info-content">શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ-ગોંડલ</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">પતાનું સરનામું</div>
+                <div class="info-content">
+                    મહારાજાશ્રી ભોજરાજજી રાજપૂત વિદ્યાર્થી ગૃહ ટ્રસ્ટ<br>
+                    (રાજપૂત સમાજ ભવન)<br>
+                    લાલપુલ પાસે, કાશી વિશ્વનાથ રોડ<br>
+                    ગોંડલ - 360 311
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">ટ્રસ્ટ પંજીયન</div>
+                <div class="info-content">
+                    રજીસ્ટ્રેશન નં.: ઈ-6158<br>
+                    રાજકોટ તાલુકો, તા. 10-4-2001
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">સ્થાપના તારીખ</div>
+                <div class="info-content">તા. 10-4-2001 (U.G.)</div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="section-title">સંપર્ક માહિતી</div>
+            <div class="contact-items">
+                <div class="contact-item">
+                    <div class="contact-item-label">📧 ઈમેઇલ</div>
+                    <div class="contact-item-value">rajputsamajgondal@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label">📱 મોબાઇલ</div>
+                    <div class="contact-item-value">91731-253755</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label">📍 સ્થાન</div>
+                    <div class="contact-item-value">ગોંડલ, રાજકોટ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 1 - TEAM AND MANAGEMENT -->
+        <div class="section">
+            <div class="section-title">કારોબારી સમિતી</div>
+            <div class="section-content">
+                <p style="margin-bottom: 20px;">શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળનું નેતૃત્વ તથા સંચાલન નીચે આપેલ દક્ષ અને અનુભવી વ્યક્તિઓ દ્વારા કરવામાં આવે છે:</p>
+                
+                <table class="team-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">ક્રમ</th>
+                            <th style="width: 35%;">નામ</th>
+                            <th style="width: 35%;">હોદ્દો</th>
+                            <th style="width: 25%;">મોબાઈલ નં.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="name-col">શ્રી દિગ્વીજયસિંહ ડી. જાડેજા</td>
+                            <td>પ્રમુખશ્રી</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td class="name-col">શ્રી હર્ષદીપસિંહ ડી. જાડેજા</td>
+                            <td>ઉપપ્રમુખશ્રી (શહેર)</td>
+                            <td>7519111118</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td class="name-col">શ્રી પુષ્પરાજસિંહ વી. જાડેજા</td>
+                            <td>ઉપપ્રમુખશ્રી (ગ્રામ્ય)</td>
+                            <td>9662710808</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td class="name-col">શ્રી બ્રિજરાજસિંહ એલ. વાઘેલા</td>
+                            <td>સંગઠન મંત્રીશ્રી</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td class="name-col">શ્રી દુષ્યંતસિંહ પી. જાડેજા</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td class="name-col">શ્રી ભુપેન્દ્રસિંહ ડી. રાયજાદા</td>
+                            <td>મંત્રીશ્રી</td>
+                            <td>9879945777</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td class="name-col">શ્રી હરદીપસિંહ એમ. જાડેજા</td>
+                            <td>કાર્યાલય મંત્રીશ્રી</td>
+                            <td>9725375834</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td class="name-col">શ્રી ધર્મરાજસિંહ એચ. રાણા</td>
+                            <td>ખજાનચીશ્રી</td>
+                            <td>8160415909</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td class="name-col">શ્રી યુવરાજસિંહ પી. જાડેજા</td>
+                            <td>સહખજાનચીશ્રી</td>
+                            <td>9259348603</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td class="name-col">શ્રી વિશ્વરાજસિંહ એલ. જાડેજા</td>
+                            <td>મીડીયા કન્વીનર</td>
+                            <td>9016396570</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td class="name-col">શ્રી જયસિંહ આર. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9998977099</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td class="name-col">શ્રી હર્ષરાજસિંહ સી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9157866801</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td class="name-col">શ્રી વિરભદ્રસિંહ એચ. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9638923440</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td class="name-col">શ્રી બ્રિજરાજસિંહ જે. ઝાલા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>8866477988</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td class="name-col">શ્રી કિશનસિંહ આર. સરવૈયા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9913527526</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td class="name-col">શ્રી યોગીરાજસિંહ બી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>7984554278</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td class="name-col">શ્રી કૃષ્ણદેવસિંહ એસ. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9925075817</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td class="name-col">શ્રી ચિત્રરાજસિંહ વી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9727016261</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td class="name-col">શ્રી કુલદીપસિંહ બી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9265958292</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td class="name-col">શ્રી સત્યજીતસિંહ એન. ઝાલા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>7016299116</td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td class="name-col">શ્રી જયદિપસિંહ એ. ઝાલા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>8758100792</td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td class="name-col">શ્રી નરેન્દ્રસિંહ એલ. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>6355830037</td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td class="name-col">શ્રી હર્ષરાજસિંહ જી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>6355112266</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td class="name-col">શ્રી સત્યરાજસિંહ ડી. ઝાલા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>6353437162</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td class="name-col">શ્રી કુલદીપસિંહ એમ. રાયજાદા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>7817835896</td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td class="name-col">શ્રી મનદીપસિંહ એમ. રાણા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>7874775007</td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td class="name-col">શ્રી પ્રદિપસિંહ જે. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>8000828286</td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td class="name-col">શ્રી દિગ્વિજયસિંહ પી. જાડેજા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>8000400800</td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td class="name-col">શ્રી મનવેન્દ્રસિંહ પી. ચુડાસમા</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9016423578</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td class="name-col">શ્રી શૈલેન્દ્રસિંહ એચ. ગોહીલ</td>
+                            <td>સભ્યશ્રી</td>
+                            <td>9879695509</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PAGE 2 - SPIRITUAL AND PROGRAMS -->
+        <div class="section">
+            <div class="section-title">પ્રવૃતિઓ અને ઉદ્દેશો</div>
+            <div class="section-content">
+                <p style="margin-bottom: 20px;">શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ સમાજની સેવા અને ઉત્થાનના લક્ષ્યે નીચે આપેલી પ્રવૃતિઓ કરી રહ્યો છે:</p>
+                <ul>
+                    <li><span class="emphasis-text">સામાજીક સેવાકીય પ્રવૃતિઓ</span> - સમાજના દરેક વર્ગની સેવા અને ઉત્થાન</li>
+                    <li><span class="emphasis-text">શૈક્ષણિક સહાય</span> - આર્થિક રીતે નબળા બાળકોને શિક્ષણમાં સહાય</li>
+                    <li><span class="emphasis-text">મહિલા કલ્યાણ</span> - વિધવા અને જરૂરીયાતમંદ મહિલાઓને સહાય અને પેન્શન</li>
+                    <li><span class="emphasis-text">તબીબી સહાય</span> - આર્થિક રીતે નબળા પરિવારોને ચિકિત્સા સારવાર</li>
+                    <li><span class="emphasis-text">સાંસ્કૃતિક પ્રવૃતિઓ</span> - સરસ્વતી સન્માન સમારોહ, નવરાત્રી, દશેરો અને અન્ય તહેવારો</li>
+                    <li><span class="emphasis-text">લગ્ન સહાય યોજના</span> - આર્થિક રીતે નબળા કુંવરીઓ માટે લગ્ન સહાય</li>
+                    <li><span class="emphasis-text">આદર્શ લગ્ન યોજના</span> - વૈદિક વિધિ અનુસાર વિના કોઇ ખર્ચે લગ્ન સંસ્કાર</li>
+                    <li><span class="emphasis-text">ઐતિહાસિક વારસો</span> - સંસ્કાર અને ધર્મ વારસાનું જતન તથા ધર્મ સંદેશો પ્રસારણ</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="trust-info">
+            <div class="trust-info-label">વર્તમાન આધ્યાત્મિક નેતૃત્વ</div>
+            <div class="trust-info-content">
+                હાલમાં <span class="emphasis-text">મહંત શ્રી 1008 મહામંડલેશ્વર મહંત શ્રી સીતારામબાપુ</span> આધ્યાત્મિક પરંપરાને આગળ વધારી રહ્યા છે અને સંસ્થાનું નેતૃત્વ કરી રહ્યા છે.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">દાન અને આર્થિક સહાય યોજનાઓ</div>
+            <div class="section-content">
+                <p style="margin-bottom: 20px;">શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળ તરફથી નીચે આપેલી સહાય યોજનાઓ અમલમાં છે:</p>
+                
+                <p style="font-weight: 600; color: #8B4513; margin-bottom: 15px;">આર્થિક સહાય યોજનાઓ:</p>
+                <ul>
+                    <li><span class="emphasis-text">શૈક્ષણિક સહાય ફંડ:</span> ધો. 5-9 માટે રૂ. 10,000 / ધો. 10-12 માટે રૂ. 15,000</li>
+                    <li><span class="emphasis-text">બાશ્રી બારાજબા મહિપતસિંહજી જાડેજા ઉચ્ચ શિક્ષણ ફંડ:</span> આર્થિક નબળા શિક્ષાર્થીઓ માટે રૂ. 25,000 સુધી</li>
+                    <li><span class="emphasis-text">સ્વ. રામદેવસિંહજી જાડેજા મેડીકલ રીલીફ ફંડ:</span> તબીબી સારવાર માટે રૂ. 35,000 સુધી (2007 થી અમલમાં)</li>
+                    <li><span class="emphasis-text">જરૂરીયાતમંદ દિકરીઓ માટે લગ્ન સહાય યોજના:</span> આર્થિક નબળા કુંવરીઓ માટે રૂ. 51,000</li>
+                    <li><span class="emphasis-text">સ્વ. માતૃશ્રી વસંતબા જાડેજા વિધવા પુરક પેન્શન રીલીફ ફંડ:</span> વિધવા બહેનોને સહાય</li>
+                    <li><span class="emphasis-text">વાર્ષિક અનાજ સહાય યોજના:</span> જરૂરીયાતમંદ અને વિધવા પરિવારોને વાર્ષિક સહાય</li>
+                    <li><span class="emphasis-text">આદર્શ લગ્ન યોજના:</span> વૈદિક વિધિ અનુસાર વિના કોઇ ખર્ચે લગ્ન સંસ્કાર</li>
+                </ul>
+
+                <p style="margin-top: 25px; font-weight: 600; color: #8B4513; margin-bottom: 15px;">દાન આપવાની માહિતી:</p>
+                <div style="background-color: #FFF8F0; padding: 15px; border-radius: 6px; border-left: 4px solid #D4AF37;">
+                    <p style="margin-bottom: 10px;"><strong>બેંક વિગત:</strong></p>
+                    <p style="margin: 5px 0;">બેંક ઓફ બરોડા - ગોંડલ બ્રાંચ<br>
+                    ખાતા નંબર: 0808010000119677<br>
+                    IFSC Code: BARBOGONDAL</p>
+                    <p style="margin-top: 15px; margin-bottom: 0;"><strong>ડિજિટલ પેમેન્ટ:</strong> BHIM, Baroda Pay, Google Pay</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ</p>
+        <p>📧 <a href="mailto:rajputsamajgondal@gmail.com">rajputsamajgondal@gmail.com</a> | 📱 91731-253755</p>
+        <p style="margin-top: 15px; font-size: 13px; opacity: 0.9;"><strong>આમાંત્રણ:</strong> આપણા સમાજના દરેક પરિવારને આમણ યુવક મંડળમાં આજીવન સભ્ય બનવા અને સમાજની સેવામાં ભાગીદારી લેવા આમંત્રણ આપી રહ્યા છીએ.</p>
+        <p style="margin-top: 10px; font-size: 13px; opacity: 0.9;">આપણે કર્યેલ વર્તમાનના માધ્યમથી ભવિષ્યતની નેવણી કરી રહ્યા છીએ</p>
+    </footer>
+</body>
+</html>
