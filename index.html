@@ -269,33 +269,39 @@
             <p class="text-[10px] uppercase tracking-widest text-gray-600">© 2025 | Rajput Yuvak Mandal Gondal | All Rights Reserved</p>
         </div>
     </footer>
+
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
-  // IMPORTANT: Use the full tracker URL
-  const TRACKER_BASE = "https://hardipsinh.pythonanywhere.com"; // <-- your tracker host
+  const TRACKER_BASE = "https://hardipsinh.pythonanywhere.com";
   const TRACK_URL = `${TRACKER_BASE}/track`;
-
-  // Decide website name to track (current hostname works well)
   const websiteName = "RYMG";
 
-  // Optional: set a shared secret header to prevent abuse (match server-side check if you add one)
-  const TRACKER_SECRET = "your-shared-secret"; // keep it safe; remove if not using
+  // Build a minimal payload with just a few useful fields
+  const payload = {
+    website: websiteName,
+    page_url: window.location.href,     // full current URL
+    referrer: document.referrer || "",  // where the user came from
+    user_agent: navigator.userAgent || "" // optional: browser UA
+    // If you want one more: pathname
+    // pathname: window.location.pathname
+  };
 
-  // Optional: timeout support to avoid hanging if tracker is down
+  // Timeout controller (optional)
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
     const res = await fetch(TRACK_URL, {
       method: "POST",
-      mode: "cors",                 // cross-origin request
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": navigator.language || "en",
-        // "X-Tracker-Secret": TRACKER_SECRET, // uncomment if you enforce a secret on server
+        // "X-Tracker-Secret": "your-shared-secret", // if you enforce a server-side secret
       },
-      body: JSON.stringify({ website: websiteName }),
+      body: JSON.stringify(payload),
       signal: controller.signal,
+      cache: "no-store"
     });
     clearTimeout(timeout);
 
@@ -306,16 +312,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data = await res.json();
     console.log("Tracked:", data.website, "count:", data.count);
-     
 
-    // Optional: update UI
-     //document.getElementById("hitCount").textContent = `Hits: ${data.count}`;
+    const hitCountEl = document.getElementById("hitCount");
+    if (hitCountEl) hitCountEl.textContent = `Hits: ${data.count}`;
   } catch (err) {
     clearTimeout(timeout);
     console.error("Error calling tracker:", err);
   }
 });
 </script>
+
 </body>
 </html>
 
