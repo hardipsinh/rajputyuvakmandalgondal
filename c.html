@@ -4,312 +4,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>રાજપૂત યુવક મંડળ - પ્રોફેશનલ માસ્કિંગ એડિટર</title>
-    
+    <title>કૃતજ્ઞતા સ્વીકાર - રાજપૂત યુવક મંડળ ગોંડલ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --primary: #7B1F1F;
             --gold: #D4A017;
             --blue: #1E3A8A;
+            --red: #DC2626;
             --bg-cream: #F5E6C8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans Gujarati', sans-serif; background: #0f172a; padding: 10px; display: flex; justify-content: center; }
-
-        .app-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; max-width: 1200px; width: 100%; }
-
-        /* Sidebar Panel */
-        .side-panel { background: white; padding: 20px; border-radius: 15px; height: fit-content; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .side-panel h2 { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-bottom: 3px solid var(--bg-cream); padding-bottom: 8px; }
         
-        .input-item { margin-bottom: 12px; }
-        .input-item label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 5px; color: #444; }
-        .input-item input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-family: inherit; }
-
-        .btn-main { width: 100%; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 15px; margin-top: 10px; transition: 0.3s; }
-        .btn-blue { background: var(--blue); color: white; }
-        .btn-red { background: var(--primary); color: white; }
-
-        /* Full Screen Editor Modal */
-        #editor-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+        body {
+            font-family: 'Noto Sans Gujarati', sans-serif;
+            background: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 15px;
         }
-        .editor-window { background: #1e293b; padding: 20px; border-radius: 20px; width: 95%; max-width: 450px; text-align: center; }
-        
-        .mask-canvas-box { 
-            position: relative; background: #334155; border: 2px solid var(--gold); border-radius: 10px; 
-            margin-bottom: 15px; overflow: hidden; display: flex; justify-content: center; align-items: center;
-            touch-action: none;
+
+        .container { 
+            max-width: 1250px; 
+            width: 100%; 
+            display: grid; 
+            grid-template-columns: 320px 1fr; 
+            gap: 20px; 
         }
-        #mask-canvas { position: absolute; top: 0; left: 0; cursor: crosshair; }
-        #bg-photo-canvas { display: block; }
 
-        .tool-switcher { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tool-opt { flex: 1; padding: 12px; border-radius: 10px; border: 2px solid #475569; background: #334155; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .tool-opt.active { background: var(--primary); border-color: var(--gold); }
+        /* Controls Panel */
+        .controls {
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            height: fit-content; 
+            position: sticky; 
+            top: 20px;
+        }
 
-        .brush-info { background: #334155; padding: 10px; border-radius: 10px; margin-bottom: 15px; color: white; text-align: left; }
-        .brush-info input { width: 100%; margin-top: 8px; accent-color: var(--gold); }
+        .controls h2 { color: var(--primary); margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+
+        .input-group { margin-bottom: 10px; }
+        .input-group label { display: block; margin-bottom: 3px; color: #444; font-weight: 700; font-size: 13px; }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 8px; border: 2px solid #ddd; border-radius: 6px;
+            font-family: inherit; font-size: 14px;
+        }
+
+        .btn {
+            width: 100%; padding: 12px; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-bottom: 8px;
+            text-align: center; display: block; text-decoration: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-share { background: #25D366; color: white; }
+        .btn-upload { background: var(--blue); color: white; }
 
         /* Poster Preview */
-        #poster-final {
-            width: 800px; height: 1100px; background: var(--bg-cream); border: 18px solid var(--primary);
-            position: relative; display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+        .preview-area {
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start;
         }
-        .gold-line { position: absolute; inset: 12px; border: 4px solid var(--gold); pointer-events: none; z-index: 20; }
+
+        #certificate {
+            width: 800px; 
+            background: var(--bg-cream);
+            border: 15px solid var(--primary); 
+            position: relative; 
+            display: flex; 
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .inner-border { position: absolute; inset: 10px; border: 3px solid var(--gold); pointer-events: none; z-index: 10; }
+
+        .header { text-align: center; padding: 30px 20px 0px; color: var(--primary); z-index: 5; }
+        .header h3 { font-size: 30px; font-weight: 900; line-height: 1.2; }
+        .header h4 { font-size: 18px; font-weight: 700; color: var(--red); margin-top: 5px; }
+
+        .cert-body { 
+            display: flex; 
+            padding: 15px 45px; 
+            gap: 25px; 
+            align-items: center; 
+            z-index: 5; 
+        }
+
+        /* Photo Interaction Area */
+        .photo-wrap { 
+            width: 320px; 
+            height: 480px; 
+            flex-shrink: 0; 
+            border: 4px solid var(--primary);
+            background: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
         
-        .top-sect { text-align: center; padding: 45px 20px 0; z-index: 5; color: var(--primary); }
-        .top-sect h1 { font-size: 42px; font-weight: 900; }
-        .top-sect p { font-size: 22px; font-weight: 800; color: #b91c1c; margin-top: 5px; }
-
-        .mid-sect { display: flex; padding: 0 50px; gap: 30px; align-items: flex-end; margin-top: 40px; flex: 1; z-index: 5; }
-        .photo-area { width: 360px; height: 580px; position: relative; display: flex; align-items: flex-end; justify-content: center; }
-        #final-img { 
-            max-width: 100%; max-height: 100%; display: block; 
-            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        #photo-preview {
+            position: absolute;
+            transform-origin: center bottom;
+            pointer-events: none;
+            max-width: none;
+            display: none;
+            -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
         }
 
-        .data-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding-bottom: 60px; }
-        .logo-wrap { width: 170px; height: 170px; background: white; border-radius: 50%; border: 7px solid var(--primary); padding: 12px; margin-bottom: 35px; }
-        .logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+        .frame-ctrl {
+            position: absolute; top: 10px; right: 10px; z-index: 100;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .f-btn { width: 40px; height: 40px; background: white; border: 2px solid var(--primary); border-radius: 6px; font-size: 22px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
-        .card-box { background: rgba(255, 255, 255, 0.75); border: 4px solid var(--gold); border-radius: 20px; padding: 35px 25px; text-align: center; width: 100%; backdrop-filter: blur(5px); }
-        .card-box h2 { font-size: 32px; color: var(--primary); font-weight: 900; line-height: 1.2; }
-        .amt-box { background: var(--primary); color: var(--gold); font-size: 50px; font-weight: 900; padding: 10px 55px; border-radius: 80px; margin-top: 25px; display: inline-block; border: 3px solid var(--gold); }
+        .right-info { flex: 1; display: flex; flex-direction: column; gap: 15px; align-items: center; }
 
-        .bot-sect { padding: 35px 70px; text-align: center; font-size: 21px; font-weight: 700; color: var(--blue); z-index: 5; line-height: 1.8; }
+        .logo-box {
+            width: 160px; height: 160px; border-radius: 50%; border: 6px solid var(--primary);
+            background: white; padding: 5px; display: flex; align-items: center; justify-content: center;
+        }
+        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
 
-        @media (max-width: 1100px) {
-            .app-layout { grid-template-columns: 1fr; }
-            #poster-final { transform: scale(0.42); transform-origin: top center; margin-bottom: -600px; }
+        .data-card {
+            background: rgba(255, 255, 255, 0.85); border: 3px solid var(--gold);
+            border-radius: 12px; padding: 25px 15px; text-align: center; width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .data-card h2 { font-size: 26px; color: var(--primary); font-weight: 900; line-height: 1.3; margin-bottom: 10px; }
+        .data-card p { font-size: 19px; color: var(--blue); font-weight: 700; margin-bottom: 5px; }
+        .data-card .post { font-size: 15px; color: #555; font-weight: 600; line-height: 1.4; }
+
+        .amount-box {
+            background: var(--primary); color: var(--gold); font-size: 38px; font-weight: 900;
+            padding: 6px 35px; border-radius: 50px; margin-top: 10px; display: inline-block;
+            border: 2px solid var(--gold);
+        }
+
+        .message { 
+            text-align: center; padding: 15px 55px; color: var(--blue);
+            font-size: 18px; line-height: 1.8; font-weight: 600; z-index: 5;
+        }
+        .message .highlight { color: var(--red); font-weight: 900; }
+
+        .thank-you {
+            margin: 0px 55px 15px; background: white; border: 3px solid var(--gold);
+            border-radius: 12px; padding: 15px; text-align: center; z-index: 5;
+        }
+        .thank-you h3 { font-size: 19px; color: var(--primary); font-weight: 900; margin: 4px 0; }
+        .thank-you p { font-size: 16px; color: #444; font-weight: 700; }
+
+        .footer {
+            margin-top: auto; padding-bottom: 25px; text-align: center;
+            color: var(--primary); font-size: 13px; font-weight: 800; z-index: 5;
+        }
+
+        /* Cutout Modal */
+        #cutout-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 1000; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-box { background: #1e293b; color: white; width: 100%; max-width: 450px; padding: 20px; border-radius: 20px; text-align: center; }
+        .canvas-container { position: relative; width: 100%; height: 350px; background: #334155; margin: 15px 0; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; touch-action: none; }
+        #mask-canvas { position: absolute; cursor: crosshair; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1000px) {
+            .container { grid-template-columns: 1fr; }
+            #certificate { transform: scale(0.45); transform-origin: top center; margin-bottom: -580px; }
+            .controls { position: static; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Professional Layer Mask Editor -->
-    <div id="editor-overlay">
-        <div class="editor-window">
-            <h3 style="color:white; margin-bottom:15px;">Pixel-Lab Masking Tool</h3>
-            
-            <div class="mask-canvas-box" id="canvas-container">
-                <canvas id="bg-photo-canvas"></canvas>
-                <canvas id="mask-canvas"></canvas>
+    <div class="container">
+        <!-- Controls Panel -->
+        <div class="controls">
+            <h2>📝 વિગતો ભરો</h2>
+            <div class="input-group">
+                <label>વ્યક્તિનો ફોટો પસંદ કરો</label>
+                <label for="up-photo" class="btn btn-upload">📸 ફોટો અપલોડ કરો</label>
+                <input type="file" id="up-photo" style="display:none" accept="image/*">
             </div>
-
-            <div class="brush-info">
-                બ્રશ સાઈઝ: <input type="range" id="size-slider" min="5" max="80" value="30">
+            <div class="input-group">
+                <label>પૂરું નામ</label>
+                <input type="text" id="in-name" value="શ્રી હરદીપસિંહ મહાવીરસિંહ જાડેજા">
             </div>
-
-            <div class="tool-switcher">
-                <button class="tool-opt active" id="btn-erase" onclick="setTool('erase')">
-                    🧹 Erase (ભૂંસો)
-                </button>
-                <button class="tool-opt" id="btn-restore" onclick="setTool('restore')">
-                    🔄 Restore (પાછું)
-                </button>
+            <div class="input-group">
+                <label>ગામ</label>
+                <input type="text" id="in-village" value="કાલમેઘડા">
             </div>
+            <div class="input-group">
+                <label>હોદ્દો</label>
+                <textarea id="in-post" rows="2">કાર્યાલય મંત્રીશ્રી ગોંડલ તાલુકા/શહેર રાજપૂત (ક્ષત્રિય) સમાજ, ગોંડલ.</textarea>
+            </div>
+            <div class="input-group">
+                <label>રકમ (રૂપિયામાં)</label>
+                <input type="text" id="in-amount" value="૨૫૦૦૦">
+            </div>
+            <div style="margin-top: 15px;">
+                <button class="btn btn-primary" onclick="downloadHD()">📥 HD ડાઉનલોડ કરો</button>
+                <button class="btn btn-share" onclick="shareWhatsApp()">📱 WhatsApp શેર કરો</button>
+            </div>
+        </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <button class="btn-main" style="background: #475569; color: white; margin:0" onclick="hideEditor()">રદ કરો</button>
-                <button class="btn-main" style="background: #16a34a; color: white; margin:0" onclick="applyMask()">સેટ કરો</button>
+        <!-- Poster Preview -->
+        <div class="preview-area">
+            <div id="certificate">
+                <div class="inner-border"></div>
+                
+                <div class="header">
+                    <h3>॥ જય માતાજી ॥</h3>
+                    <h4>॥ સર્વ જ્ઞાતિ પોલીસ ભરતી સેવા યજ્ઞ - સેવા પરમો ધર્મ ॥</h4>
+                </div>
+
+                <div class="cert-body">
+                    <div class="photo-wrap" id="drag-zone">
+                        <div class="frame-ctrl">
+                            <button class="f-btn" onclick="zoom(0.1)">+</button>
+                            <button class="f-btn" onclick="zoom(-0.1)">-</button>
+                        </div>
+                        <img id="photo-preview" src="" alt="Donor Photo">
+                    </div>
+                    
+                    <div class="right-info">
+                        <div class="logo-box">
+                            <!-- Make sure logo.jpg exists or use a valid URL -->
+                            <img src="https://via.placeholder.com/150?text=SAMAJ+LOGO" alt="Samaj Logo" id="logo-img">
+                        </div>
+                        
+                        <div class="data-card">
+                            <h2 id="disp-name">શ્રી હરદીપસિંહ મહાવીરસિંહ જાડેજા</h2>
+                            <p>ગામ : <span id="disp-village">કાલમેઘડા</span></p>
+                            <p class="post" id="disp-post">કાર્યાલય મંત્રીશ્રી ગોંડલ તાલુકા/શહેર રાજપૂત (ક્ષત્રિય) સમાજ, ગોંડલ.</p>
+                            <div class="amount-box">રૂ. <span id="disp-amount">૨૫૦૦૦</span>/-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message">
+                    <span class="highlight" style="font-size: 20px;">શ્રી ગોંડલ તાલુકા શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ-ગોંડલ</span><br>
+                    દ્વારા આયોજિત સર્વ જ્ઞાતિ પોલીસ ભરતીમાં સેવા અને સમર્પણના સંસ્કારોને ઉજાગર કરતા 'રાજપુત સમાજ' ખાતે <span class="highlight">સતત ૪૫ દિવસ</span> સુધી ચાલેલા આ ભગીરથી સેવા યજ્ઞમાં, <span class="highlight">૮૦૦૦ જેટલા પરીક્ષાર્થી યુવાનોએ</span> ભોજન અને નિઃશુલ્ક સુવિધાઓનો લાભ લીધો.
+                </div>
+
+                <div class="thank-you">
+                    <p>આ સેવા યજ્ઞમાં અનુદાન આપવા બદલ</p>
+                    <h3>શ્રી ગોંડલ તાલુકા-શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ-ગોંડલ</h3>
+                    <p>આપનો હૃદય પૂર્વક આભાર વ્યક્ત કરે છે.</p>
+                </div>
+
+                <div class="footer">
+                    📷 @rajput_yuvak_mandal_gondal<br>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="app-layout">
-        <div class="side-panel">
-            <h2>માહિતી એડિટ કરો</h2>
-            <div class="input-item">
-                <label>૧. ફોટો અપલોડ કરો</label>
-                <button class="btn-main btn-blue" onclick="document.getElementById('file-upload').click()">📁 ફોટો પસંદ કરો</button>
-                <input type="file" id="file-upload" style="display:none;" accept="image/*">
+    <!-- Cutout Modal UI -->
+    <div id="cutout-modal">
+        <div class="modal-box">
+            <h3>બેકગ્રાઉન્ડ દૂર કરો</h3>
+            <div class="canvas-container">
+                <canvas id="bg-canvas"></canvas>
+                <canvas id="mask-canvas"></canvas>
             </div>
-            <div class="input-item">
-                <label>વ્યક્તિનું નામ</label>
-                <input type="text" id="in-name" value="શ્રી દશરથસિંહજી (ભીખુભા) ઝાલા">
+            <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                ઝૂમ: <input type="range" id="m-zoom" min="0.5" max="3" step="0.1" value="1" style="flex:1">
             </div>
-            <div class="input-item">
-                <label>અનુદાન રકમ</label>
-                <input type="text" id="in-amt" value="૨૫૦૦૦">
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button class="btn" style="background:#475569; color:white; margin:0;" onclick="tool='erase'">🧹 ભૂંસો</button>
+                <button class="btn" style="background:#475569; color:white; margin:0;" onclick="tool='restore'">🔄 પાછું</button>
             </div>
-            <button class="btn-main btn-red" onclick="savePoster()">📥 HD ડાઉનલોડ</button>
-        </div>
-
-        <div id="poster-final">
-            <div class="gold-line"></div>
-            <div class="top-sect">
-                <h1>॥ જય માતાજી ॥</h1>
-                <p>॥ સર્વ જ્ઞાતિ પોલીસ ભરતી સેવા યજ્ઞ ॥</p>
-            </div>
-
-            <div class="mid-sect">
-                <div class="photo-area">
-                    <img id="final-img" src="https://via.placeholder.com/360x580?text=ફોટો+પસંદ+કરો" alt="Final">
-                </div>
-                <div class="data-area">
-                    <div class="logo-wrap">
-                        <img src="https://via.placeholder.com/150?text=SAMAJ+LOGO" alt="Logo">
-                    </div>
-                    <div class="card-box">
-                        <h2 id="out-name">શ્રી દશરથસિંહજી (ભીખુભા) ઝાલા</h2>
-                        <p style="font-weight: 800; color:var(--blue); margin-top:10px; font-size: 22px;">ગામ : ચોરડી</p>
-                        <div class="amt-box">રૂ. <span id="out-amt">૨૫૦૦૦</span>/-</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bot-sect">
-                શ્રી ગોંડલ તાલુકા શહેર રાજપૂત યુવક મંડળ ટ્રસ્ટ-ગોંડલ દ્વારા આયોજિત પોલીસ ભરતી સેવા યજ્ઞમાં આપના ઉમદા સહયોગ અને અનુદાન બદલ.
-            </div>
-
-            <div style="text-align: center; padding-bottom: 45px; font-weight: 900; color: var(--primary); font-size: 24px;">
-                હૃદય પૂર્વક આભાર વ્યક્ત કરીએ છીએ.
+            <div style="display:flex; gap:10px;">
+                <button class="btn" style="background:#334155; color:white; margin:0;" onclick="closeModal()">રદ</button>
+                <button class="btn" style="background:#22c55e; color:white; margin:0;" onclick="applyCutout()">કન્ફર્મ</button>
             </div>
         </div>
     </div>
 
     <script>
-        const bgCanvas = document.getElementById('bg-photo-canvas');
-        const maskCanvas = document.getElementById('mask-canvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        const maskCtx = maskCanvas.getContext('2d');
-        
-        let originalImg = new Image();
-        let isDrawing = false;
-        let currentTool = 'erase';
-        let brushSize = 30;
+        // Live Data Sync
+        const syncField = (inputId, displayId) => {
+            document.getElementById(inputId).addEventListener('input', (e) => {
+                document.getElementById(displayId).innerText = e.target.value;
+            });
+        };
+        syncField('in-name', 'disp-name');
+        syncField('in-village', 'disp-village');
+        syncField('in-post', 'disp-post');
+        syncField('in-amount', 'disp-amount');
 
-        // Sync Text Inputs
-        document.getElementById('in-name').addEventListener('input', e => document.getElementById('out-name').innerText = e.target.value);
-        document.getElementById('in-amt').addEventListener('input', e => document.getElementById('out-amt').innerText = e.target.value);
+        // Variables for Photo Manipulation
+        const photoEl = document.getElementById('photo-preview');
+        const modal = document.getElementById('cutout-modal');
+        let rawImg = new Image();
+        let offX=0, offY=0, sc=1, isDrag=false, sX, sY;
 
-        // Upload and Setup
-        document.getElementById('file-upload').addEventListener('change', function(e) {
+        // Cutout Canvas Setup
+        const bCan = document.getElementById('bg-canvas');
+        const mCan = document.getElementById('mask-canvas');
+        const bCtx = bCan.getContext('2d');
+        const mCtx = mCan.getContext('2d');
+        let tool = 'erase', mz = 1, isDrawing = false;
+
+        // Handle Photo Upload
+        document.getElementById('up-photo').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                originalImg.onload = function() {
-                    setupEditor();
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    rawImg = new Image();
+                    rawImg.onload = () => {
+                        modal.style.display = 'flex';
+                        initModal();
+                    };
+                    rawImg.src = ev.target.result;
                 };
-                originalImg.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
+            }
         });
 
-        function setupEditor() {
-            // Scale Image to fit editor
-            const maxW = 350;
-            const maxH = 500;
-            let w = originalImg.width;
-            let h = originalImg.height;
-            const ratio = Math.min(maxW / w, maxH / h);
-            w *= ratio;
-            h *= ratio;
-
-            bgCanvas.width = maskCanvas.width = w;
-            bgCanvas.height = maskCanvas.height = h;
-
-            // Draw original image on BG canvas
-            bgCtx.drawImage(originalImg, 0, 0, w, h);
-
-            // Clear mask canvas (transparent)
-            maskCtx.clearRect(0, 0, w, h);
-            
-            document.getElementById('editor-overlay').style.display = 'flex';
+        function initModal() {
+            mz = 1; document.getElementById('m-zoom').value = 1;
+            drawModal();
         }
 
-        function setTool(tool) {
-            currentTool = tool;
-            document.getElementById('btn-erase').classList.toggle('active', tool === 'erase');
-            document.getElementById('btn-restore').classList.toggle('active', tool === 'restore');
+        function drawModal() {
+            const w = rawImg.width * mz, h = rawImg.height * mz;
+            const fit = Math.min(410/w, 350/h);
+            bCan.width = mCan.width = w * fit;
+            bCan.height = mCan.height = h * fit;
+            bCtx.drawImage(rawImg, 0, 0, bCan.width, bCan.height);
+            mCtx.clearRect(0,0,mCan.width,mCan.height);
         }
 
-        document.getElementById('size-slider').oninput = function() {
-            brushSize = this.value;
+        document.getElementById('m-zoom').oninput = e => { mz = e.target.value; drawModal(); };
+
+        const getPos = e => {
+            const r = mCan.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - r.left;
+            const y = (e.clientY || e.touches[0].clientY) - r.top;
+            return {x, y};
         };
 
-        // Drawing Logic on Mask
-        maskCanvas.addEventListener('mousedown', startDrawing);
-        maskCanvas.addEventListener('mousemove', draw);
-        maskCanvas.addEventListener('mouseup', stopDrawing);
-        maskCanvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e.touches[0]); });
-        maskCanvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
-        maskCanvas.addEventListener('touchend', stopDrawing);
+        const onDraw = e => {
+            if(!isDrawing) return;
+            const p = getPos(e);
+            mCtx.lineWidth = 30; mCtx.lineCap = 'round';
+            mCtx.globalCompositeOperation = tool === 'erase' ? 'source-over' : 'destination-out';
+            mCtx.strokeStyle = 'white';
+            mCtx.lineTo(p.x, p.y); mCtx.stroke(); mCtx.beginPath(); mCtx.moveTo(p.x, p.y);
+        };
 
-        function startDrawing(e) {
-            isDrawing = true;
-            draw(e);
+        mCan.onmousedown = mCan.ontouchstart = e => { isDrawing = true; mCtx.beginPath(); onDraw(e); };
+        window.onmousemove = window.ontouchmove = onDraw;
+        window.onmouseup = window.ontouchend = () => isDrawing = false;
+
+        function applyCutout() {
+            const temp = document.createElement('canvas');
+            temp.width = bCan.width; temp.height = bCan.height;
+            const tx = temp.getContext('2d');
+            tx.drawImage(bCan, 0, 0);
+            tx.globalCompositeOperation = 'destination-out';
+            tx.drawImage(mCan, 0, 0);
+            
+            photoEl.src = temp.toDataURL();
+            photoEl.style.display = 'block';
+            offX=0; offY=0; sc=1; updateT();
+            modal.style.display = 'none';
         }
 
-        function stopDrawing() {
-            isDrawing = false;
-            maskCtx.beginPath();
-        }
+        function closeModal() { modal.style.display = 'none'; }
 
-        function draw(e) {
-            if (!isDrawing) return;
-            const rect = maskCanvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        // Poster Interaction (Drag & Zoom)
+        const updateT = () => photoEl.style.transform = `translate(${offX}px, ${offY}px) scale(${sc})`;
+        window.zoom = (v) => { sc = Math.max(0.1, sc + v); updateT(); };
 
-            maskCtx.lineWidth = brushSize;
-            maskCtx.lineCap = 'round';
+        const zone = document.getElementById('drag-zone');
+        zone.onmousedown = zone.ontouchstart = e => {
+            isDrag = true;
+            sX = (e.clientX || e.touches[0].clientX) - offX;
+            sY = (e.clientY || e.touches[0].clientY) - offY;
+        };
 
-            if (currentTool === 'erase') {
-                maskCtx.globalCompositeOperation = 'source-over';
-                maskCtx.strokeStyle = 'white'; // Erase by drawing white on mask
-            } else {
-                maskCtx.globalCompositeOperation = 'destination-out';
-                maskCtx.strokeStyle = 'rgba(0,0,0,1)'; // Restore by removing white from mask
-            }
+        window.addEventListener('mousemove', e => {
+            if(!isDrag) return;
+            offX = (e.clientX || (e.touches && e.touches[0].clientX)) - sX;
+            offY = (e.clientY || (e.touches && e.touches[0].clientY)) - sY;
+            updateT();
+        });
 
-            maskCtx.lineTo(x, y);
-            maskCtx.stroke();
-            maskCtx.beginPath();
-            maskCtx.moveTo(x, y);
-        }
+        window.addEventListener('touchmove', e => {
+            if(!isDrag) return;
+            offX = e.touches[0].clientX - sX;
+            offY = e.touches[0].clientY - sY;
+            updateT();
+        }, {passive: false});
 
-        function applyMask() {
-            // Create a temporary canvas to merge image + mask
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = bgCanvas.width;
-            tempCanvas.height = bgCanvas.height;
-            const tempCtx = tempCanvas.getContext('2d');
+        window.onmouseup = window.ontouchend = () => isDrag = false;
 
-            // 1. Draw original image
-            tempCtx.drawImage(bgCanvas, 0, 0);
-
-            // 2. Use 'destination-out' to cut out the white parts of the mask
-            tempCtx.globalCompositeOperation = 'destination-out';
-            tempCtx.drawImage(maskCanvas, 0, 0);
-
-            // Set final image to poster
-            document.getElementById('final-img').src = tempCanvas.toDataURL('image/png');
-            hideEditor();
-        }
-
-        function hideEditor() {
-            document.getElementById('editor-overlay').style.display = 'none';
-        }
-
-        async function savePoster() {
-            const frame = document.getElementById('poster-final');
-            const result = await html2canvas(frame, { 
+        // Download Function
+        async function downloadHD() {
+            const cert = document.getElementById('certificate');
+            const canvas = await html2canvas(cert, { 
                 scale: 3, 
                 useCORS: true, 
-                backgroundColor: '#F5E6C8' 
+                backgroundColor: '#F5E6C8'
             });
             const link = document.createElement('a');
-            link.download = "Rajput_Samaj_Aabhar.png";
-            link.href = result.toDataURL('image/png');
+            link.download = `Rajput_Samaj_Poster.png`;
+            link.href = canvas.toDataURL('image/png');
             link.click();
+        }
+
+        // WhatsApp Share Function
+        async function shareWhatsApp() {
+            const cert = document.getElementById('certificate');
+            const canvas = await html2canvas(cert, { scale: 2, useCORS: true });
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'poster.png', { type: 'image/png' });
+                if (navigator.share) {
+                    await navigator.share({ files: [file], title: 'કૃતજ્ઞતા સ્વીકાર' });
+                } else {
+                    const waUrl = `https://wa.me/?text=${encodeURIComponent("રાજપૂત યુવક મંડળ - ગોંડલ")}`;
+                    window.open(waUrl, '_blank');
+                }
+            }, 'image/png');
         }
     </script>
 </body>
